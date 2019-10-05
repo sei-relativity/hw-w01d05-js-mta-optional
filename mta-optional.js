@@ -1,3 +1,12 @@
+/* 
+-This is a simple metro trip planner system.
+-You can use it by calling the funcion "tripPlanner()" and everything else is automated from there.
+-Read promts carfully.
+****** 'x' as an input would exit the program for you******
+-final results are in the console area
+*/
+
+//this function verifies if line/stations selected are valid selections
 const verifyIt = function (x, y, stops) {
     //x is to specify if  we're looking for a line or what line we are working with
     //y to pass the name of the line or station
@@ -11,14 +20,13 @@ const verifyIt = function (x, y, stops) {
 
     let lLine = x.toString().toLowerCase();//lowercase line name
 
-
-
     //Verifying that the selected stations are valid selections
     if (!(y && stops[lLine].indexOf(y.toString().toLowerCase()) >= 0))
         return false;
     return true;
 }
 
+//this function prints out the trip plan
 const printIt = function (lSLine, sS, lELine, eS, stops) {
 
     if (lSLine == lELine || stops[lSLine][sS] == 'union square' || stops[lELine][eS] == 'union square') {
@@ -57,6 +65,7 @@ const printIt = function (lSLine, sS, lELine, eS, stops) {
     }
 }
 
+//this is the distance function. It counts how many stops are there and prints it out
 const stopsBetweenStations = function (lSLine, lSStation, lELine, lEStation, stops) {
 
     //to avoid repetition & have a correct union square's postion
@@ -82,6 +91,8 @@ const stopsBetweenStations = function (lSLine, lSStation, lELine, lEStation, sto
     }
     return console.log((Math.abs(sS - stops[lSLine].indexOf('union square')) + Math.abs(eS - stops[lELine].indexOf('union square'))) + " stops in total.");
 }
+
+//this is the main function. It is takes lines and stations from the users and return the results.
 const tripPlanner = function () {
     //Creating an object of the lines and stations
     const lines = ['n', 'l', '6'];
@@ -113,7 +124,7 @@ const tripPlanner = function () {
         alert("You wrote " + sStation + "\nThis is not one of the available stations for your selected line\n" + stops[lSLine].join(', ') + ".\nNow let's please start all over again");
         return tripPlanner()
     }
-    const lSStation = sStation.toLowerCase() // start station lower case
+    const lSStation = sStation.toLowerCase() //start station lowercase
 
     //asking for the end line and verifying it
     const eLine = window.prompt("Great we have your starting destanion set\n Now please select the end line of your wanted station\n Available lines are: N, L, 6.\n or enter x to exit")
@@ -140,6 +151,5 @@ const tripPlanner = function () {
     }
     const lEStation = eStation.toLowerCase()//end station lowercase
 
-    stopsBetweenStations(lSLine, lSStation, lELine, lEStation, stops)
-
+    return stopsBetweenStations(lSLine, lSStation, lELine, lEStation, stops)
 }
